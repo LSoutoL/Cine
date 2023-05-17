@@ -36,6 +36,7 @@ public class CineService {
         cine.setSala(sala);
         cine.setPelicula(cargarPelicula());
         cine.setPrecio(500);
+        cargarEspectadores();
     }
     public Pelicula cargarPelicula(){
         return new Pelicula("El Hobbit", 18, "Peter Jackson", 185);
@@ -70,11 +71,16 @@ public class CineService {
         }
     }
     public void asignarAsiento(){
-        for (int i = 7; i >= 0; i--) {
-            for (int j = 0; j < 6; j++) {
-                
-            }
+        for (Espectador espectador : cine.getEspectadores()) {
+            if ((espectador.getCash()>=cine.getPrecio()) && (espectador.getAge()>=cine.getPelicula().getEdadMIn()) && (cine.getEspectadores().indexOf(espectador)<cine.getEspectadores().size())){
+                int i;
+                int j;
+                do {
+                    i=(int)Math.round(Math.random()*7);
+                    j=(int)Math.round(Math.random()*5); 
+                } while (cine.getSala()[i][j].getEspectador()!=null);
+                cine.getSala()[i][j].setEspectador(espectador);
+            } 
         }
- 
     }
 }

@@ -22,21 +22,30 @@ import java.util.Scanner;
 public class ServicioAseguradora {
     private ArrayList<Cliente> clientes;
     private ArrayList<Poliza> polizas;
+    private ArrayList<Vehiculo> vehiculos;
     private Scanner leer;
 
     public ServicioAseguradora() {
         this.clientes=new ArrayList<>();
         this.polizas=new ArrayList<>();
         this.leer= new Scanner(System.in).useDelimiter("\n");
+        this.vehiculos=new ArrayList<>();
     }
+
+    public ArrayList<Cliente> getClientes() {
+        return clientes;
+    }
+    
         
     public void crearClientes(){
+        System.out.println("En esta seccion, podra cargar nuevos clientes.");
         String opcion;
         do{
             ArrayList<Poliza> polizas_cliente = new ArrayList<>();
             System.out.println("Ingrese el nombre del cliente");
             String nombre = leer.next();
             Cliente cliente = new Cliente(nombre);
+            System.out.println("Ahora, le asignaremos una poliza de cobertura.");
             polizas_cliente=crearPoliza(cliente);
             cliente.setPolizas(polizas_cliente);
             clientes.add(cliente);
@@ -46,22 +55,41 @@ public class ServicioAseguradora {
     }
     
     public ArrayList<Poliza> crearPoliza(Cliente cliente){
+        System.out.println("En esta seccion podra crear nuevas polizas.");
         String opcion;
         ArrayList<Poliza> poliza = new ArrayList<>();
         do{
-            Vehiculo vehiculo = cargarVehiculo();
+            System.out.println("Antes de crear una poliza, debera asignarle un vehiculo.");
+            System.out.println("Seleccione: 1. Cargar nuevo vehiculo; 2. Asignar vechiculo ya cargado.");
+            int op=leer.nextInt();
+            Vehiculo vehiculo= new Vehiculo();
+            switch (op){
+            case 1: vehiculo = cargarVehiculo();
+            break;
+            case 2: System.out.println("Indique la marca, modelo y anio");
+            String marca=leer.next();
+            String modelo=leer.next();
+            Integer anio=leer.nextInt();
+                for (Vehiculo var : vehiculos) {
+                    if ((marca.equalsIgnoreCase(var.getMarca())) && (modelo.equalsIgnoreCase(var.getModelo())) && (anio.equals(var.getAnio()))){
+                        vehiculo=var;
+                    }
+                }
+            break;
+        }
             ArrayList<Cuota> cuotas = crearCuota();
             System.out.println("Indique la cobertura: 1. Tercero simple; 2. Tercero completo; 3. Todo riesgo");
             int aux = leer.nextInt();
             polizas.add(new Poliza(vehiculo, cliente,Cobertura.values()[aux], cuotas));
             poliza.add(new Poliza(vehiculo, cliente, Cobertura.values()[aux], cuotas));
-            System.out.println("Desea ingrear un nuevo cliente?");
+            System.out.println("Desea crear una nueva poliza?");
             opcion=leer.next();
         }while (opcion.equalsIgnoreCase("s"));        
         return poliza;
     }
     
     public Vehiculo cargarVehiculo (){
+        System.out.println("En esta seccion podra cargar nuevos vehiculos");
         System.out.println("Ingrese los datos de su vehiculo");
         System.out.println("Marca");
         String marca= leer.next();
@@ -71,6 +99,7 @@ public class ServicioAseguradora {
         Integer anio = leer.nextInt();
         System.out.println("TIPO: 1. SUV; 2. Hatchback; 3. Sedan; 4. 4x4");
         int aux = leer.nextInt();
+        vehiculos.add(new Vehiculo(marca, modelo, anio, Tipo.values()[aux]));
         return new Vehiculo(marca, modelo, anio, Tipo.values()[aux]);
     }
     

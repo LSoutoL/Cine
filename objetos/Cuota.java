@@ -6,6 +6,7 @@ package EjerciciosExtra.objetos;
 
 import EjerciciosExtra.Enum.FormaPago;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -36,6 +37,30 @@ public class Cuota {
         this.monto = monto;
         this.vence = vence;
         this.pago=false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cuota other = (Cuota) obj;
+        if (!Objects.equals(this.monto, other.monto)) {
+            return false;
+        }
+        return Objects.equals(this.vence, other.vence);
     }
     
 
@@ -81,7 +106,7 @@ public class Cuota {
         if (formaPago==null){
             forma="pendiente";
         } else forma=formaPago.name();
-        return "Cuota{" + "monto=" + monto + ", pago=" + pag + ", vence=" + vence + ", Forma de pago=" + forma + '}';
+        return "monto= " + monto + ", pago= " + pag + ", vence= " + vence + ", Forma de pago= " + forma + '}';
     }
      
     

@@ -6,6 +6,7 @@ package EjerciciosExtra;
 
 import EjerciciosExtra.Service.ServicioAseguradora;
 import EjerciciosExtra.objetos.Cliente;
+import java.util.Date;
 import java.util.Scanner;
 
 /**

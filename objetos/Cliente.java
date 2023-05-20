@@ -5,6 +5,7 @@
 package EjerciciosExtra.objetos;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -18,13 +19,13 @@ public class Cliente {
     private String mail;
     private String domicilio;
     private long tel;
-    private ArrayList<Poliza> polizas;
+    private HashMap<Integer,Poliza> polizas;
 
     public Cliente() {
-        this.polizas=new ArrayList<>();
+        this.polizas=new HashMap<>();
     }
 
-    public Cliente(String nombre, String apellido, long DNI, String mail, String domicilio, long tel, ArrayList<Poliza> polizas) {
+    public Cliente(String nombre, String apellido, long DNI, String mail, String domicilio, long tel, HashMap<Integer, Poliza> polizas) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.DNI = DNI;
@@ -43,11 +44,11 @@ public class Cliente {
         return nombre;
     }
 
-    public ArrayList<Poliza> getPolizas() {
+    public HashMap<Integer, Poliza> getPolizas() {
         return polizas;
     }
 
-    public void setPolizas(ArrayList<Poliza> polizas) {
+    public void setPolizas(HashMap<Integer, Poliza> polizas) {
         this.polizas = polizas;
     }
 
